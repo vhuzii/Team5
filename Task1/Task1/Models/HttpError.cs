@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task1.Models
+﻿namespace Task1.Models
 {
-    class HttpError : IComparable<HttpError>
+    using System;
+
+    internal class HttpError : IComparable<HttpError>
     {
         public int ErrorCode { get; set; }
 
@@ -27,6 +23,11 @@ namespace Task1.Models
             }
 
             return this.ErrorCode.Equals(item.ErrorCode);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ErrorCode.GetHashCode();
         }
     }
 }
