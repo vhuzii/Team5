@@ -22,7 +22,7 @@ namespace Task1
                 text = text.Replace(item.ErrorCode.ToString(), replacement);
             }
 
-            Console.WriteLine(text);
+            File.WriteAllText(@"..\..\Files\file2.txt", text);
             //text = text.Replace("400", "new value");
             //File.WriteAllText("test.txt", text);
         }
@@ -30,6 +30,7 @@ namespace Task1
         {
             List<HttpError> errors = HttpError.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
             ReplaceCodesToDescription(errors);
+            
         }
     }
 }
