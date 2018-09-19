@@ -17,7 +17,7 @@ namespace Task1
 
             foreach (var err in errors)
             {
-                Console.WriteLine(err.ErrorCode);
+                Console.WriteLine(err.ErrorTime);
             }
         }
     }
