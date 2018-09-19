@@ -14,6 +14,8 @@ namespace Task1.Models
 
         public string Description { get; set; }
 
+        public DateTime ErrorTime { get; set; }
+
         public static IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
         {
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
@@ -26,7 +28,8 @@ namespace Task1.Models
                     errors.Add(new HttpError
                     {
                         ErrorCode = int.Parse(items[0]),
-                        Description = items[1]
+                        Description = items[1],
+                        ErrorTime = DateTime.Parse(items[2])
                     });
                 }
 
