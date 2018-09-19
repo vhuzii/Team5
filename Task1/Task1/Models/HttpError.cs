@@ -13,7 +13,7 @@ namespace Task1.Models
         public int ErrorCode { get; set; }
 
         public string Description { get; set; }
-        
+
         public DateTime ErrorTime { get; set; }
 
         public static IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
