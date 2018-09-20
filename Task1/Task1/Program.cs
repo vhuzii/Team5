@@ -23,17 +23,35 @@ namespace Task1
             }
 
             Console.WriteLine(text);
-            
-            //text = text.Replace("400", "new value");
-            //File.WriteAllText("test.txt", text);
+
+            // text = text.Replace("400", "new value");
+            // File.WriteAllText("test.txt", text);
         }
 
+        public static void PrintCodesToFile(List<HttpError> errors, string path)
+        {
+            var groups = from e in errors
+                         group e by e.ErrorCode;
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            {
+                foreach (IGrouping<int, HttpError> group in groups)
+                {
+                    file.WriteLine(group.Key);
+                    file.WriteLine("--------------");
+                    foreach (var t in group)
+                    {
+                        file.WriteLine(t.ErrorTime);
+                        file.WriteLine(string.Empty);
+                    }
+                }
+            }
+        }
 
         private static void Main(string[] args)
         {
             List<HttpError> errors = HttpError.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
             ReplaceCodesToDescription(errors);
-            
+            PrintCodesToFile(errors, @"..\..\Files\file3.txt");
         }
     }
 }
