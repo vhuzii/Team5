@@ -22,10 +22,13 @@ namespace Task1
                 text = text.Replace(item.ErrorCode.ToString(), replacement);
             }
 
-            File.WriteAllText(@"..\..\Files\file2.txt", text);
+            Console.WriteLine(text);
+            
             //text = text.Replace("400", "new value");
             //File.WriteAllText("test.txt", text);
         }
+
+
         private static void Main(string[] args)
         {
             List<HttpError> errors = HttpError.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
