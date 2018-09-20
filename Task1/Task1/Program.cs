@@ -12,7 +12,6 @@ namespace Task1
 
     internal class Program
     {
-
         public static void ReplaceCodesToDescription(List<HttpError> errors)
         {
             string text = File.ReadAllText(@"..\..\Files\file2.txt");
@@ -23,9 +22,6 @@ namespace Task1
             }
 
             Console.WriteLine(text);
-
-            // text = text.Replace("400", "new value");
-            // File.WriteAllText("test.txt", text);
         }
 
         public static void PrintCodesToFile(List<HttpError> errors, string path)
