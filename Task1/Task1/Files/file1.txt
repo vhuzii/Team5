@@ -1,3 +1,12 @@
 400 Bad_Request 19.09.2018
+400 Bad_Request 18.09.2018
+400 Bad_Request 12.05.2018
+400 Bad_Request 10.03.2018
+400 Bad_Request 13.09.2018
+400 Bad_Request 14.09.2018
+401 Unathorized 11.09.2018
+401 Unathorized 12.09.2018
+401 Unathorized 13.09.2018
+401 Unathorized 14.09.2018
 401 Unathorized 19.09.2018
 403 Forbidden 19.09.2018
