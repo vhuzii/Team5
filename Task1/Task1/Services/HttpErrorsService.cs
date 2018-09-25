@@ -12,8 +12,16 @@ namespace Task1.Services
     using System.Threading.Tasks;
     using Task1.Models;
 
+    /// <summary>
+    /// functionality of httpError
+    /// </summary>
     public class HttpErrorsService
     {
+        /// <summary>
+        /// read errors from file
+        /// </summary>
+        /// <param name="path">file path</param>
+        /// <returns>error collectio</returns>
         public static IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
         {
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
@@ -30,6 +38,11 @@ namespace Task1.Services
             }
         }
 
+        /// <summary>
+        /// Replace codes in text to code desctiption
+        /// </summary>
+        /// <param name="errors">errors to replace in text</param>
+        /// <param name="path">path to text</param>
         public static void ReplaceCodesToDescription(List<HttpError> errors, string path)
         {
             string text = File.ReadAllText(@"..\..\Files\file2.txt");
@@ -43,6 +56,11 @@ namespace Task1.Services
             Console.WriteLine(text);
         }
 
+        /// <summary>
+        /// Outputs codes to file
+        /// </summary>
+        /// <param name="errors">list of errors to output</param>
+        /// <param name="path">path to file</param>
         public static void PrintCodesToFile(List<HttpError> errors, string path)
         {
             var groups = from e in errors
@@ -62,6 +80,10 @@ namespace Task1.Services
             }
         }
 
+        /// <summary>
+        /// Output errors in console
+        /// </summary>
+        /// <param name="errors">errors to output</param>
         public static void OutputErrors(List<HttpError> errors)
         {
             foreach (HttpError error in errors)

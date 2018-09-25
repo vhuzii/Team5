@@ -11,6 +11,9 @@ namespace Task1
     using Task1.Models;
     using Task1.Services;
 
+    /// <summary>
+    /// class that contains main function
+    /// </summary>
     internal class Program
     {
         private static void Main(string[] args)
