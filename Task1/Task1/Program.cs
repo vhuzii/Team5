@@ -9,45 +9,21 @@ namespace Task1
     using System.IO;
     using System.Linq;
     using Task1.Models;
+    using Task1.Services;
 
+    /// <summary>
+    /// class that contains main function
+    /// </summary>
     internal class Program
     {
-        public static void ReplaceCodesToDescription(List<HttpError> errors)
-        {
-            string text = File.ReadAllText(@"..\..\Files\file2.txt");
-            foreach (var item in errors)
-            {
-                string replacement = item.Description + " " + item.ErrorTime;
-                text = text.Replace(item.ErrorCode.ToString(), replacement);
-            }
-
-            Console.WriteLine(text);
-        }
-
-        public static void PrintCodesToFile(List<HttpError> errors, string path)
-        {
-            var groups = from e in errors
-                         group e by e.ErrorCode;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
-            {
-                foreach (IGrouping<int, HttpError> group in groups)
-                {
-                    file.WriteLine(group.Key);
-                    file.WriteLine("--------------");
-                    foreach (var t in group)
-                    {
-                        file.WriteLine(t.ErrorTime);
-                        file.WriteLine(string.Empty);
-                    }
-                }
-            }
-        }
-
         private static void Main(string[] args)
         {
-            List<HttpError> errors = HttpError.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
-            ReplaceCodesToDescription(errors);
-            PrintCodesToFile(errors, @"..\..\Files\file3.txt");
+            List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
+            Console.WriteLine("errors from file1: ");
+            HttpErrorsService.OutputErrors(errors);
+            Console.WriteLine("changed file2: ");
+            HttpErrorsService.ReplaceCodesToDescription(errors, @"..\..\Files\file2.txt");
+            HttpErrorsService.PrintCodesToFile(errors, @"..\..\Files\file3.txt");
         }
     }
 }

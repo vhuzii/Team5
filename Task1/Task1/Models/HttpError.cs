@@ -8,43 +8,57 @@ namespace Task1.Models
     using System.Collections.Generic;
     using System.IO;
 
-    internal class HttpError : IComparable<HttpError>
+    /// <summary>
+    /// HttpErrorMode
+    /// </summary>
+    public class HttpError : IComparable<HttpError>
     {
-        public int ErrorCode { get; set; }
-
-        public string Description { get; set; }
-
-        public DateTime ErrorTime { get; set; }
-
-        public static IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpError"/> class.
+        /// </summary>
+        /// <param name="errorCode">Code of error</param>
+        /// <param name="description">Error description</param>
+        /// <param name="timeOfError">Time when error occured</param>
+        public HttpError(int errorCode, string description, DateTime timeOfError)
         {
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
-            {
-                List<HttpError> errors = new List<HttpError>();
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    var items = line.Split(' ');
-                    errors.Add(new HttpError
-                    {
-                        ErrorCode = int.Parse(items[0]),
-                        Description = items[1],
-                        ErrorTime = DateTime.Parse(items[2])
-                    });
-                }
-
-                return errors;
-            }
+            this.Description = description;
+            this.ErrorCode = errorCode;
+            this.ErrorTime = timeOfError;
         }
 
+        /// <summary>
+        /// Gets or sets time when error code
+        /// </summary>
+        public int ErrorCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets time when error description
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets time when error occured
+        /// </summary>
+        public DateTime ErrorTime { get; set; }
+
+        /// <summary>
+        /// Function to compare two errors
+        /// </summary>
+        /// <param name="obj">error to compare</param>
+        /// <returns>1 if this errorCode > obj errorCode, 0 if same, -1 if lower </returns>
         public int CompareTo(HttpError obj)
         {
             return this.ErrorCode.CompareTo(obj.ErrorCode);
         }
 
+        /// <summary>
+        /// Method to compare two httpErrors
+        /// </summary>
+        /// <param name="obj">Error to compare</param>
+        /// <returns>return true if obj is error and has same error code</returns>
         public override bool Equals(object obj)
         {
-            var item = obj as HttpError;
+            HttpError item = obj as HttpError;
 
             if (item == null)
             {
@@ -54,9 +68,22 @@ namespace Task1.Models
             return this.ErrorCode.Equals(item.ErrorCode);
         }
 
+        /// <summary>
+        /// get hash code of error by ErrorCode
+        /// </summary>
+        /// <returns>hash code of error</returns>
         public override int GetHashCode()
         {
             return this.ErrorCode.GetHashCode();
+        }
+
+        /// <summary>
+        /// get error info
+        /// </summary>
+        /// <returns>output error info</returns>
+        public override string ToString()
+        {
+            return this.ErrorCode + " " + this.Description + " " + this.ErrorTime;
         }
     }
 }
