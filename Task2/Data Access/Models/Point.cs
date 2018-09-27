@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Task2.Models
+namespace Data_Access.Repositories.Models
 {
     using System;
     using System.Collections.Generic;

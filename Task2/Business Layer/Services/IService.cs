@@ -1,16 +1,16 @@
-﻿// <copyright file="IRepository.cs" company="PlaceholderCompany">
+﻿// <copyright file="IService.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Data_Access.Repositories.Interfaces
+namespace Business_Layer.Services
 {
     using System.Collections.Generic;
 
     /// <summary>
-    /// interface of repository
+    /// Generic service
     /// </summary>
-    /// <typeparam name="TEntity">Stored entity</typeparam>
-    public interface IRepository<TEntity>
+    /// <typeparam name="TEntity">Service Entity</typeparam>
+    public interface IService<TEntity>
     {
         /// <summary>
         /// Method to add entity

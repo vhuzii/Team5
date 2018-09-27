@@ -2,13 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Task2.Models.Abstract
+namespace Data_Access.Repositories.Models.Abstract
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Abstract class figure that containts list of points

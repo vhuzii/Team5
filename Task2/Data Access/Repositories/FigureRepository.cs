@@ -6,7 +6,7 @@ namespace Data_Access.Repositories
 {
     using System.Collections.Generic;
     using Data_Access.Repositories.Interfaces;
-    using Task2.Models.Abstract;
+    using Data_Access.Repositories.Models.Abstract;
 
     /// <summary>
     /// Repository to store figures
