@@ -18,7 +18,7 @@ namespace Task2
     public partial class MainWindow : Window
     {
         private readonly IService<Figure> figureRepository;
-        private PointCollection clickedPoints = new PointCollection();
+        private List<Point> clickedPoints = new List<Point>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -41,13 +41,16 @@ namespace Task2
                 };
                 this.figureRepository.Add(f);
                 this.DrawFigure(f);
+                this.clickedPoints.Clear();
             }
         }
 
         private void DrawFigure(Figure f)
         {
+            ChooseColorModal modal = new ChooseColorModal();
+            modal.ShowDialog();
             SolidColorBrush yellowBrush = new SolidColorBrush();
-            yellowBrush.Color = Colors.Yellow;
+            yellowBrush.Color = modal.ChosenColor;
             SolidColorBrush blackBrush = new SolidColorBrush();
             blackBrush.Color = Colors.Black;
             Polygon yellowPolygon = new Polygon();
@@ -59,8 +62,9 @@ namespace Task2
             {
                 polygonPoints.Add(point);
             }
+
             yellowPolygon.Points = polygonPoints;
-            Main.Children.Add(yellowPolygon);
+            this.Main.Children.Add(yellowPolygon);
         }
     }
 }
