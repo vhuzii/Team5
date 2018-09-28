@@ -8,7 +8,7 @@ namespace Business_Layer.Services
     using System.Collections.Generic;
     using Data_Access.Repositories;
     using Data_Access.Repositories.Interfaces;
-    using Task2.Models.Abstract;
+    using Data_Access.Repositories.Models.Abstract;
 
     /// <summary>
     /// Service that works with Figures logic
@@ -29,7 +29,7 @@ namespace Business_Layer.Services
         /// <inheritdoc/>
         public void Add(Figure entity)
         {
-            throw new NotImplementedException();
+            this.figureRepository.Add(entity);
         }
 
         /// <inheritdoc/>

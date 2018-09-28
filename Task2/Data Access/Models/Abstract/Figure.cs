@@ -5,11 +5,12 @@
 namespace Data_Access.Repositories.Models.Abstract
 {
     using System.Collections.Generic;
+    using System.Windows;
 
     /// <summary>
     /// Abstract class figure that containts list of points
     /// </summary>
-    public abstract class Figure
+    public class Figure
     {
         /// <summary>
         /// Gets or sets points of Figure

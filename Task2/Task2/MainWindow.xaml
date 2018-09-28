@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" />
@@ -20,5 +24,6 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
+        <Canvas Grid.Row="1" Name="Main" MouseLeftButtonDown="MouseClick" Background="Transparent"/>
     </Grid>
 </Window>

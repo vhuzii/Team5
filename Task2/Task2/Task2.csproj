@@ -56,12 +56,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ChooseColorModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseColorModal.xaml.cs">
+      <DependentUpon>ChooseColorModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -101,6 +108,10 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business Layer\Business Layer.csproj">
+      <Project>{10f2e831-e595-437d-ba66-b7e3f686c603}</Project>
+      <Name>Business Layer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data Access\Data Access.csproj">
       <Project>{85CE5EE1-7DCD-49D9-B7A7-3261BE6F6614}</Project>
       <Name>Data Access</Name>
