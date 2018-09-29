@@ -6,7 +6,12 @@ namespace Business_Layer.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Media;
     using System.Windows.Shapes;
+    using System.Xml.Serialization;
     using Data_Access.Repositories;
     using Data_Access.Repositories.Interfaces;
 
@@ -33,6 +38,12 @@ namespace Business_Layer.Services
         }
 
         /// <inheritdoc/>
+        public IEnumerable<Polygon> DeserializeAll(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<Polygon> GetAll()
         {
             throw new NotImplementedException();
@@ -42,6 +53,19 @@ namespace Business_Layer.Services
         public void Remove(Polygon entity)
         {
             throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public void SerealizeAll(string path)
+        {
+            IEnumerable<Polygon> allPolygons = this.figureRepository.GetAll();
+            var points = allPolygons.SelectMany(p => p.Points).ToArray();
+            XmlSerializer formatter = new XmlSerializer(typeof(Point[]));
+
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, points);
+            }
         }
     }
 }
