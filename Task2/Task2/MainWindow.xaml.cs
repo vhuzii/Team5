@@ -29,6 +29,12 @@ namespace Task2
             this.figureRepository = new FigureService();
         }
 
+        private void StartDrawing(object sender, RoutedEventArgs e)
+        {
+            this.Main.Visibility = Visibility.Visible;
+            this.Hint.Visibility = Visibility.Collapsed;
+        }
+
         private void MouseClick(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(this);
@@ -43,28 +49,32 @@ namespace Task2
                 this.DrawFigure(f);
                 this.clickedPoints.Clear();
             }
+            else
+            {
+                this.Main.Children.Clear();
+            }
         }
 
         private void DrawFigure(Figure f)
         {
             ChooseColorModal modal = new ChooseColorModal();
             modal.ShowDialog();
-            SolidColorBrush yellowBrush = new SolidColorBrush();
-            yellowBrush.Color = modal.ChosenColor;
+            SolidColorBrush colorBrush = new SolidColorBrush();
+            colorBrush.Color = modal.ChosenColor;
             SolidColorBrush blackBrush = new SolidColorBrush();
             blackBrush.Color = Colors.Black;
-            Polygon yellowPolygon = new Polygon();
-            yellowPolygon.Stroke = blackBrush;
-            yellowPolygon.Fill = yellowBrush;
-            yellowPolygon.StrokeThickness = 4;
+            Polygon polygon = new Polygon();
+            polygon.Stroke = blackBrush;
+            polygon.Fill = colorBrush;
+            polygon.StrokeThickness = 4;
             PointCollection polygonPoints = new PointCollection();
             foreach (Point point in f.Points)
             {
                 polygonPoints.Add(point);
             }
 
-            yellowPolygon.Points = polygonPoints;
-            this.Main.Children.Add(yellowPolygon);
+            polygon.Points = polygonPoints;
+            this.Main.Children.Add(polygon);
         }
     }
 }

@@ -14,7 +14,7 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
+                    <MenuItem Header="_New" Click="StartDrawing" />
                     <MenuItem Header="_Open" />
                     <MenuItem Header="_Save" />
                 </MenuItem>
@@ -24,6 +24,12 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Canvas Grid.Row="1" Name="Main" MouseLeftButtonDown="MouseClick" Background="Transparent"/>
+        <Canvas Visibility="Collapsed" Grid.Row="1" Name="Main" MouseLeftButtonDown="MouseClick" Background="Transparent"/>
+        <Grid Name="Hint" VerticalAlignment="Center" Grid.Row="1" Background="LightGray">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock>Select File -> New to start drawing</TextBlock>
+                <TextBlock>Select File -> Open to open a canvas</TextBlock>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
