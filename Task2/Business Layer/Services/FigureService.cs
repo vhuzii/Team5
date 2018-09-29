@@ -8,12 +8,12 @@ namespace Business_Layer.Services
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Windows;
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Xml.Serialization;
     using Data_Access.Repositories;
     using Data_Access.Repositories.Interfaces;
+    using Data_Access.XMLModels;
 
     /// <summary>
     /// Service that works with Figures logic
@@ -40,13 +40,25 @@ namespace Business_Layer.Services
         /// <inheritdoc/>
         public IEnumerable<Polygon> DeserializeAll(string path)
         {
-            throw new NotImplementedException();
+            XmlSerializer formatter = new XmlSerializer(typeof(XMLPolygon[]));
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                List<XMLPolygon> xmlPolygons = ((XMLPolygon[])formatter.Deserialize(fs)).ToList();
+                List<Polygon> newPolygons = new List<Polygon>();
+                foreach (var xmlPolygon in xmlPolygons)
+                {
+                    newPolygons.Add(this.GetPolygon(xmlPolygon));
+                }
+
+                this.figureRepository.SetAll(newPolygons);
+                return this.GetAll();
+            }
         }
 
         /// <inheritdoc/>
         public IEnumerable<Polygon> GetAll()
         {
-            throw new NotImplementedException();
+            return this.figureRepository.GetAll();
         }
 
         /// <inheritdoc/>
@@ -58,14 +70,33 @@ namespace Business_Layer.Services
         /// <inheritdoc/>
         public void SerealizeAll(string path)
         {
-            IEnumerable<Polygon> allPolygons = this.figureRepository.GetAll();
-            var points = allPolygons.SelectMany(p => p.Points).ToArray();
-            XmlSerializer formatter = new XmlSerializer(typeof(Point[]));
+            System.Collections.Generic.IEnumerable<Polygon> allPolygons = this.figureRepository.GetAll();
+            var points = allPolygons.Select(polygon => new XMLPolygon(polygon.Points.ToList(), polygon.Fill, polygon.StrokeThickness)).ToArray();
+            XmlSerializer formatter = new XmlSerializer(typeof(XMLPolygon[]));
 
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, points);
             }
+        }
+
+        /// <summary>
+        /// Remove all figures
+        /// </summary>
+        public void RemoveAll()
+        {
+            this.figureRepository.RemoveAll();
+        }
+
+        private Polygon GetPolygon(XMLPolygon xmlPolygon)
+        {
+            return new Polygon()
+            {
+                Points = new PointCollection(xmlPolygon.Points),
+                StrokeThickness = xmlPolygon.StrokeThickness,
+                Fill = new SolidColorBrush(xmlPolygon.Color),
+                Stroke = new SolidColorBrush(Colors.Black)
+            };
         }
     }
 }

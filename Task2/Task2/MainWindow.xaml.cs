@@ -33,9 +33,8 @@ namespace Task2
 
         private void NewCanvas(object sender, RoutedEventArgs e)
         {
-            this.Main.Children.Clear();
-            this.Main.Visibility = Visibility.Visible;
-            this.Hint.Visibility = Visibility.Collapsed;
+            this.ClearCanvas();
+            this.figureService.RemoveAll();
             this.Background = Brushes.White;
         }
 
@@ -46,6 +45,21 @@ namespace Task2
             dialog.ShowDialog();
             string path = System.IO.Path.GetFullPath(dialog.FileName);
             this.figureService.SerealizeAll(path);
+        }
+
+        private void OpenCanvas(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Text file (*.xml)|*.xml";
+            dialog.ShowDialog();
+            string fullPath = System.IO.Path.GetFullPath(dialog.FileName);
+            var polygons = this.figureService.DeserializeAll(fullPath);
+            this.ClearCanvas();
+            this.Background = Brushes.White;
+            foreach (var polygon in polygons)
+            {
+                this.DrawFigure(polygon);
+            }
         }
 
         private void MouseClick(object sender, MouseButtonEventArgs e)
@@ -97,6 +111,16 @@ namespace Task2
             line.Y2 = this.clickedPoints[lastPointIndex - 1].Y;
             this.lines.Add(line);
             this.Main.Children.Add(line);
+        }
+
+        private void ClearCanvas()
+        {
+            this.Main.Children.Clear();
+            this.polygons.Clear();
+            this.lines.Clear();
+            this.clickedPoints.Clear();
+            this.Main.Visibility = Visibility.Visible;
+            this.Hint.Visibility = Visibility.Collapsed;
         }
     }
 }

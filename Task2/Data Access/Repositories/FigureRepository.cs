@@ -5,15 +5,17 @@
 namespace Data_Access.Repositories
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Shapes;
     using Data_Access.Repositories.Interfaces;
+    using Data_Access.XMLModels;
 
     /// <summary>
     /// Repository to store figures
     /// </summary>
     public class FigureRepository : IRepository<Polygon>
     {
-        private readonly List<Polygon> figures = new List<Polygon>();
+        private List<Polygon> figures = new List<Polygon>();
 
         /// <inheritdoc/>
         public void Add(Polygon entity)
@@ -31,6 +33,18 @@ namespace Data_Access.Repositories
         public void Remove(Polygon entity)
         {
             this.figures.Remove(entity);
+        }
+
+        /// <inheritdoc/>
+        public void RemoveAll()
+        {
+            this.figures.Clear();
+        }
+
+        /// <inheritdoc/>
+        public void SetAll(IEnumerable<Polygon> entities)
+        {
+            this.figures = entities.ToList();
         }
     }
 }

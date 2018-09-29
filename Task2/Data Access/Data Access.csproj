@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FigureRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="XMLModels\XMLPolygon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

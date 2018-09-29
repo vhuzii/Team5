@@ -42,5 +42,10 @@ namespace Business_Layer.Services
         /// <param name="path">path of file</param>
         /// <returns>entity collection</returns>
         IEnumerable<TEntity> DeserializeAll(string path);
+
+        /// <summary>
+        /// remove all entities
+        /// </summary>
+        void RemoveAll();
     }
 }
