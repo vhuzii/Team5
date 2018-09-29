@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Background="LightGray">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -14,7 +15,7 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" Click="StartDrawing" />
+                    <MenuItem Header="_New" Click="NewCanvas" />
                     <MenuItem Header="_Open" />
                     <MenuItem Header="_Save" />
                 </MenuItem>
@@ -25,11 +26,9 @@
             </Menu>
         </DockPanel>
         <Canvas Visibility="Collapsed" Grid.Row="1" Name="Main" MouseLeftButtonDown="MouseClick" Background="Transparent"/>
-        <Grid Name="Hint" VerticalAlignment="Center" Grid.Row="1" Background="LightGray">
-            <StackPanel HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Hint">
                 <TextBlock>Select File -> New to start drawing</TextBlock>
                 <TextBlock>Select File -> Open to open a canvas</TextBlock>
             </StackPanel>
-        </Grid>
     </Grid>
 </Window>

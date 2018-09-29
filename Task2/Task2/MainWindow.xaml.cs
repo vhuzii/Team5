@@ -29,10 +29,12 @@ namespace Task2
             this.figureRepository = new FigureService();
         }
 
-        private void StartDrawing(object sender, RoutedEventArgs e)
+        private void NewCanvas(object sender, RoutedEventArgs e)
         {
+            this.Main.Children.Clear();
             this.Main.Visibility = Visibility.Visible;
             this.Hint.Visibility = Visibility.Collapsed;
+            this.Background = Brushes.White;
         }
 
         private void MouseClick(object sender, MouseButtonEventArgs e)
@@ -48,10 +50,6 @@ namespace Task2
                 this.figureRepository.Add(f);
                 this.DrawFigure(f);
                 this.clickedPoints.Clear();
-            }
-            else
-            {
-                this.Main.Children.Clear();
             }
         }
 

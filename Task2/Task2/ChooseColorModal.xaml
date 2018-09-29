@@ -17,7 +17,7 @@
             <RadioButton GroupName="Color" Content="Blue" Checked="RadioButton_Checked"/>
             <RadioButton GroupName="Color" Content="Green" Checked="RadioButton_Checked"/>
             <RadioButton GroupName="Color" Content="Yellow" Checked="RadioButton_Checked"/>
-            <RadioButton GroupName="Color" Content="Grey" Checked="RadioButton_Checked"/>
+            <RadioButton GroupName="Color" Content="Gray" Checked="RadioButton_Checked"/>
             <RadioButton GroupName="Color" Content="Orange" Checked="RadioButton_Checked"/>
         </StackPanel>
 
