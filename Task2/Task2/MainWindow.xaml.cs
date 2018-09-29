@@ -10,15 +10,16 @@ namespace Task2
     using System.Windows.Media;
     using System.Windows.Shapes;
     using Business_Layer.Services;
-    using Figure = Data_Access.Repositories.Models.Abstract.Figure;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IService<Figure> figureRepository;
-        private List<Point> clickedPoints = new List<Point>();
+        private readonly IService<Polygon> figureRepository;
+        private PointCollection clickedPoints = new PointCollection();
+        private List<System.Windows.Shapes.Polygon> polygons = new List<System.Windows.Shapes.Polygon>();
+        private List<Line> lines = new List<Line>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -41,38 +42,46 @@ namespace Task2
         {
             Point p = e.GetPosition(this);
             this.clickedPoints.Add(p);
+            if (this.clickedPoints.Count > 1)
+            {
+                int lastPointIndex = this.clickedPoints.Count - 1;
+                var line = new Line();
+                line.Stroke = Brushes.Black;
+
+                line.X1 = this.clickedPoints[lastPointIndex].X;
+                line.X2 = this.clickedPoints[lastPointIndex - 1].X;
+                line.Y1 = this.clickedPoints[lastPointIndex].Y;
+                line.Y2 = this.clickedPoints[lastPointIndex - 1].Y;
+                this.lines.Add(line);
+                this.Main.Children.Add(line);
+            }
+
             if (this.clickedPoints.Count == 6)
             {
-                Figure f = new Figure
-                {
-                    Points = this.clickedPoints
-                };
-                this.figureRepository.Add(f);
-                this.DrawFigure(f);
+                this.lines.Clear();
+                Polygon polygon = this.CreatePolygon();
+                this.DrawFigure(polygon);
                 this.clickedPoints.Clear();
             }
         }
 
-        private void DrawFigure(Figure f)
+        private void DrawFigure(Polygon polygon)
         {
+            this.polygons.Add(polygon);
+            this.Main.Children.Add(polygon);
+        }
+
+        private Polygon CreatePolygon()
+        {
+            Polygon polygon = new Polygon();
+            polygon.Points = this.clickedPoints.Clone();
+            this.figureRepository.Add(polygon);
             ChooseColorModal modal = new ChooseColorModal();
             modal.ShowDialog();
-            SolidColorBrush colorBrush = new SolidColorBrush();
-            colorBrush.Color = modal.ChosenColor;
-            SolidColorBrush blackBrush = new SolidColorBrush();
-            blackBrush.Color = Colors.Black;
-            Polygon polygon = new Polygon();
-            polygon.Stroke = blackBrush;
-            polygon.Fill = colorBrush;
+            polygon.Fill = new SolidColorBrush(modal.ChosenColor);
             polygon.StrokeThickness = 4;
-            PointCollection polygonPoints = new PointCollection();
-            foreach (Point point in f.Points)
-            {
-                polygonPoints.Add(point);
-            }
-
-            polygon.Points = polygonPoints;
-            this.Main.Children.Add(polygon);
+            polygon.Stroke = new SolidColorBrush(Colors.Black);
+            return polygon;
         }
     }
 }

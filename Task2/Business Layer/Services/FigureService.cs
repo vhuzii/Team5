@@ -6,16 +6,16 @@ namespace Business_Layer.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Windows.Shapes;
     using Data_Access.Repositories;
     using Data_Access.Repositories.Interfaces;
-    using Data_Access.Repositories.Models.Abstract;
 
     /// <summary>
     /// Service that works with Figures logic
     /// </summary>
-    public class FigureService : IService<Figure>
+    public class FigureService : IService<Polygon>
     {
-        private readonly IRepository<Figure> figureRepository;
+        private readonly IRepository<Polygon> figureRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FigureService"/> class.
@@ -27,19 +27,19 @@ namespace Business_Layer.Services
         }
 
         /// <inheritdoc/>
-        public void Add(Figure entity)
+        public void Add(Polygon entity)
         {
             this.figureRepository.Add(entity);
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Figure> GetAll()
+        public IEnumerable<Polygon> GetAll()
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public void Remove(Figure entity)
+        public void Remove(Polygon entity)
         {
             throw new NotImplementedException();
         }
