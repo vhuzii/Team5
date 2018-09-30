@@ -19,7 +19,7 @@
                     <MenuItem Header="_Open" Click="OpenCanvas"/>
                     <MenuItem Header="_Save" Click="SaveCanvas"/>
                 </MenuItem>
-                <MenuItem Header="_Shapes">
+                <MenuItem Header="_Shapes"  x:Name="polygonesList" ItemTemplate="{StaticResource listTemplate}">
                 </MenuItem>
                 <MenuItem Header="_Save">
                 </MenuItem>
@@ -27,8 +27,8 @@
         </DockPanel>
         <Canvas Visibility="Collapsed" Grid.Row="1" Name="Main" MouseLeftButtonDown="MouseClick" Background="Transparent"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Hint">
-                <TextBlock>Select File -> New to start drawing</TextBlock>
-                <TextBlock>Select File -> Open to open a canvas</TextBlock>
-            </StackPanel>
+            <TextBlock>Select File -> New to start drawing</TextBlock>
+            <TextBlock>Select File -> Open to open a canvas</TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

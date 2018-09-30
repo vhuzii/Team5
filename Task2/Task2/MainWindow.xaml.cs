@@ -5,6 +5,7 @@
 namespace Task2
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Forms;
     using System.Windows.Input;
@@ -19,7 +20,7 @@ namespace Task2
     {
         private readonly IService<Polygon> figureService;
         private PointCollection clickedPoints = new PointCollection();
-        private List<System.Windows.Shapes.Polygon> polygons = new List<System.Windows.Shapes.Polygon>();
+        public ObservableCollection<Polygon> polygons = new ObservableCollection<Polygon>();
         private List<Line> lines = new List<Line>();
 
         /// <summary>
@@ -29,6 +30,7 @@ namespace Task2
         {
             this.InitializeComponent();
             this.figureService = new FigureService();
+            polygonesList.ItemsSource = polygons;
         }
 
         private void NewCanvas(object sender, RoutedEventArgs e)
@@ -84,6 +86,7 @@ namespace Task2
         {
             this.polygons.Add(polygon);
             this.Main.Children.Add(polygon);
+            //this.ShapesMenu.Items.Add(polygon);
         }
 
         private Polygon CreatePolygon()
