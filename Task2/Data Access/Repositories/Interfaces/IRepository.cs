@@ -29,5 +29,16 @@ namespace Data_Access.Repositories.Interfaces
         /// </summary>
         /// <returns>returns all elements from repository</returns>
         IEnumerable<TEntity> GetAll();
+
+        /// <summary>
+        /// Set all elements of repository
+        /// </summary>
+        /// <param name="entities">new collection</param>
+        void SetAll(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Remove all entities from repository
+        /// </summary>
+        void RemoveAll();
     }
 }

@@ -29,5 +29,23 @@ namespace Business_Layer.Services
         /// </summary>
         /// <returns>returns all elements from repository</returns>
         IEnumerable<TEntity> GetAll();
+
+        /// <summary>
+        /// Serialize all entities
+        /// </summary>
+        /// <param name="path">serialization path</param>
+        void SerealizeAll(string path);
+
+        /// <summary>
+        /// serialize collection from file
+        /// </summary>
+        /// <param name="path">path of file</param>
+        /// <returns>entity collection</returns>
+        IEnumerable<TEntity> DeserializeAll(string path);
+
+        /// <summary>
+        /// remove all entities
+        /// </summary>
+        void RemoveAll();
     }
 }
