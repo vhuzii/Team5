@@ -19,11 +19,14 @@ namespace Task1
         private static void Main(string[] args)
         {
             List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
+            //List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"../../Files/file1.txt").ToList();
             Console.WriteLine("errors from file1: ");
             HttpErrorsService.OutputErrors(errors);
             Console.WriteLine("changed file2: ");
             HttpErrorsService.ReplaceCodesToDescription(errors, @"..\..\Files\file2.txt");
+            //HttpErrorsService.ReplaceCodesToDescription(errors, @"../../Files/file2.txt");
             HttpErrorsService.PrintCodesToFile(errors, @"..\..\Files\file3.txt");
+            //HttpErrorsService.PrintCodesToFile(errors, @"../../Files/file3.txt");
         }
     }
 }
