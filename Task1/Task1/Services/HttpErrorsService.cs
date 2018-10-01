@@ -32,21 +32,18 @@ namespace Task1.Services
 
                     while (!sr.EndOfStream)
                     {
-                        var line  = sr.ReadLine();
+                        var line = sr.ReadLine();
                         var items = line.Split(' ');
                         errors.Add(new HttpError(errorCode: int.Parse(items[0]), description: items[1], timeOfError: DateTime.Parse(items[2])));
                     }
-                    
+
                     return errors;
                 }
             }
-
             else
             {
-                throw (new IOException("Can't open file."));
+                throw new IOException("Can't open file.");
             }
-
-            
         }
 
         /// <summary>
@@ -58,8 +55,8 @@ namespace Task1.Services
         {
             if (File.Exists(path))
             {
-                var text         = File.ReadAllText(path);
-                var uniqueErrors = errors.Distinct();   
+                var text = File.ReadAllText(path);
+                var uniqueErrors = errors.Distinct();
                 foreach (var item in errors)
                 {
                     var replacement = item.Description + " " + item.ErrorTime;
@@ -68,9 +65,9 @@ namespace Task1.Services
 
                 Console.WriteLine(text);
             }
-            else 
+            else
             {
-                throw (new IOException("Can't open file."));
+                throw new IOException("Can't open file.");
             }
         }
 
@@ -102,7 +99,7 @@ namespace Task1.Services
             }
             else
             {
-                throw (new IOException("Can't open file."));
+                throw new IOException("Can't open file.");
             }
         }
 
