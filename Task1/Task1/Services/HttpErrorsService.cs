@@ -24,17 +24,25 @@ namespace Task1.Services
         /// <returns>error collectio</returns>
         public static IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
         {
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            if (File.Exists(path))
             {
-                List<HttpError> errors = new List<HttpError>();
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                using (var sr = new StreamReader(path, System.Text.Encoding.Default))
                 {
-                    var items = line.Split(' ');
-                    errors.Add(new HttpError(errorCode: int.Parse(items[0]), description: items[1], timeOfError: DateTime.Parse(items[2])));
-                }
+                   var errors = new List<HttpError>();
 
-                return errors;
+                    while (!sr.EndOfStream)
+                    {
+                        var line = sr.ReadLine();
+                        var items = line.Split(' ');
+                        errors.Add(new HttpError(errorCode: int.Parse(items[0]), description: items[1], timeOfError: DateTime.Parse(items[2])));
+                    }
+
+                    return errors;
+                }
+            }
+            else
+            {
+                throw new IOException("Can't open file.");
             }
         }
 
@@ -45,15 +53,22 @@ namespace Task1.Services
         /// <param name="path">path to text</param>
         public static void ReplaceCodesToDescription(List<HttpError> errors, string path)
         {
-            string text = File.ReadAllText(@"..\..\Files\file2.txt");
-            var uniqueErrors = errors.Distinct();
-            foreach (var item in errors)
+            if (File.Exists(path))
             {
-                string replacement = item.Description + " " + item.ErrorTime;
-                text = text.Replace(item.ErrorCode.ToString(), replacement);
-            }
+                var text = File.ReadAllText(path);
+                var uniqueErrors = errors.Distinct();
+                foreach (var item in errors)
+                {
+                    var replacement = item.Description + " " + item.ErrorTime;
+                    text = text.Replace(item.ErrorCode.ToString(), replacement);
+                }
 
-            Console.WriteLine(text);
+                Console.WriteLine(text);
+            }
+            else
+            {
+                throw new IOException("Can't open file.");
+            }
         }
 
         /// <summary>
@@ -65,18 +80,26 @@ namespace Task1.Services
         {
             var groups = from e in errors
                          group e by e.ErrorCode;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+
+            if (File.Exists(path))
             {
-                foreach (IGrouping<int, HttpError> group in groups)
+                using (var file = new StreamWriter(path))
                 {
-                    file.WriteLine(group.Key);
-                    file.WriteLine("--------------");
-                    foreach (var t in group)
+                    foreach (IGrouping<int, HttpError> group in groups)
                     {
-                        file.WriteLine(t.ErrorTime);
-                        file.WriteLine(string.Empty);
+                        file.WriteLine(group.Key);
+                        file.WriteLine("--------------");
+                        foreach (var t in group)
+                        {
+                            file.WriteLine(t.ErrorTime);
+                            file.WriteLine(string.Empty);
+                        }
                     }
                 }
+            }
+            else
+            {
+                throw new IOException("Can't open file.");
             }
         }
 
@@ -86,7 +109,7 @@ namespace Task1.Services
         /// <param name="errors">errors to output</param>
         public static void OutputErrors(List<HttpError> errors)
         {
-            foreach (HttpError error in errors)
+            foreach (var error in errors)
             {
                 Console.WriteLine(error.ToString());
             }
