@@ -7,6 +7,7 @@ namespace Task2
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Forms;
     using System.Windows.Input;
     using System.Windows.Media;
@@ -23,6 +24,8 @@ namespace Task2
         private ObservableCollection<Polygon> polygons = new ObservableCollection<Polygon>();
         private Polygon selectedPolygon = null;
         private List<Line> lines = new List<Line>();
+        private bool dragging = false;
+        private Point clickV;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -32,6 +35,10 @@ namespace Task2
             this.InitializeComponent();
             this.figureService = new FigureService();
             this.polygonesList.ItemsSource = this.polygons;
+
+            Main.MouseMove += new System.Windows.Input.MouseEventHandler(CanvasMouseMove);
+
+            Main.MouseUp += new MouseButtonEventHandler(CanvasMouseUp);
         }
 
         private void NewCanvas(object sender, RoutedEventArgs e)
@@ -73,19 +80,22 @@ namespace Task2
 
         private void MouseClick(object sender, MouseButtonEventArgs e)
         {
-            Point p = e.GetPosition(this);
-            this.clickedPoints.Add(p);
-            if (this.clickedPoints.Count > 1)
+            if (!dragging)
             {
-                this.DrawLine();
-            }
+                Point p = e.GetPosition(this);
+                this.clickedPoints.Add(p);
+                if (this.clickedPoints.Count > 1)
+                {
+                    this.DrawLine();
+                }
 
-            if (this.clickedPoints.Count == 6)
-            {
-                this.lines.Clear();
-                Polygon polygon = this.CreatePolygon();
-                this.DrawFigure(polygon);
-                this.clickedPoints.Clear();
+                if (this.clickedPoints.Count == 6)
+                {
+                    this.lines.Clear();
+                    Polygon polygon = this.CreatePolygon();
+                    this.DrawFigure(polygon);
+                    this.clickedPoints.Clear();
+                }
             }
         }
 
@@ -138,10 +148,30 @@ namespace Task2
             {
                 this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Black);
             }
-
             var item = (System.Windows.Controls.MenuItem)e.OriginalSource;
             this.selectedPolygon = (Polygon)item.DataContext;
             this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Red);
+            this.selectedPolygon.MouseDown += new MouseButtonEventHandler(this.PolygonMouseDown);
+        }
+
+        private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.dragging = false;
+        }
+
+        private void CanvasMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (this.dragging && this.selectedPolygon != null)
+            {
+                Canvas.SetLeft(this.selectedPolygon, e.GetPosition(this.Main).X - this.clickV.X);
+                Canvas.SetTop(this.selectedPolygon, e.GetPosition(this.Main).Y - this.clickV.Y);
+            }
+        }
+
+        private void PolygonMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.dragging = true;
+            this.clickV = e.GetPosition(this.selectedPolygon);
         }
     }
 }
