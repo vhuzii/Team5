@@ -36,9 +36,9 @@ namespace Task2
             this.figureService = new FigureService();
             this.polygonesList.ItemsSource = this.polygons;
 
-            Main.MouseMove += new System.Windows.Input.MouseEventHandler(CanvasMouseMove);
+            this.Main.MouseMove += new System.Windows.Input.MouseEventHandler(this.CanvasMouseMove);
 
-            Main.MouseUp += new MouseButtonEventHandler(CanvasMouseUp);
+            this.Main.MouseUp += new MouseButtonEventHandler(this.CanvasMouseUp);
         }
 
         private void NewCanvas(object sender, RoutedEventArgs e)
@@ -80,7 +80,7 @@ namespace Task2
 
         private void MouseClick(object sender, MouseButtonEventArgs e)
         {
-            if (!dragging)
+            if (!this.dragging)
             {
                 Point p = e.GetPosition(this);
                 this.clickedPoints.Add(p);
@@ -148,6 +148,7 @@ namespace Task2
             {
                 this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Black);
             }
+
             var item = (System.Windows.Controls.MenuItem)e.OriginalSource;
             this.selectedPolygon = (Polygon)item.DataContext;
             this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Red);
@@ -172,6 +173,60 @@ namespace Task2
         {
             this.dragging = true;
             this.clickV = e.GetPosition(this.selectedPolygon);
+        }
+
+        private void KeyboardClick(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (this.selectedPolygon != null)
+            {
+                if (e.Key == Key.Up)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X, point.Y - 5));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+
+                if (e.Key == Key.Down)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X, point.Y + 5));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+
+                if (e.Key == Key.Left)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X - 5, point.Y));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+
+                if (e.Key == Key.Right)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X + 5, point.Y));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+            }
         }
     }
 }

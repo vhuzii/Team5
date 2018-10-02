@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Task2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="LightGray">
+        Background="LightGray"
+        PreviewKeyDown="KeyboardClick">
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="NewCanvas" />
         <CommandBinding Command="Open" Executed="OpenCanvas" />
@@ -29,7 +30,13 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Canvas Visibility="Collapsed" Grid.Row="1" Name="Main" MouseLeftButtonDown="MouseClick" Background="Transparent"/>
+        <Canvas  Visibility="Collapsed"
+                 Grid.Row="1" Name="Main"
+                 MouseLeftButtonDown="MouseClick" 
+                 Background="Transparent"
+                 Canvas.Left="5"
+                 Canvas.Top="5" 
+                 Focusable="true" />
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Hint">
             <TextBlock>Select File -> New to start drawing</TextBlock>
             <TextBlock>Select File -> Open to open a canvas</TextBlock>
