@@ -7,7 +7,7 @@
                 <Polygon Points="{Binding Path=Points, Mode=TwoWay}" 
                      Fill="{Binding Path=Fill, Mode=TwoWay}"
                      StrokeThickness="{Binding Path=StrokeThickness, Mode=TwoWay}"
-                     Stroke="{Binding Path=StrokeThickness, Mode=TwoWay}">
+                     Stroke="{Binding Path=Stroke, Mode=TwoWay}">
                 </Polygon>
                 <StackPanel.LayoutTransform>
                     <ScaleTransform ScaleX="0.2" ScaleY="0.2" />

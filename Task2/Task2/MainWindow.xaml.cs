@@ -125,5 +125,10 @@ namespace Task2
             this.Main.Visibility = Visibility.Visible;
             this.Hint.Visibility = Visibility.Collapsed;
         }
+
+        private void polygonesList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

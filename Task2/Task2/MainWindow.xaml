@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Background="LightGray">
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="NewCanvas" />
+        <CommandBinding Command="Open" Executed="OpenCanvas" />
+        <CommandBinding Command="Save" Executed="SaveCanvas" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -15,12 +20,11 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" Click="NewCanvas" />
-                    <MenuItem Header="_Open" Click="OpenCanvas"/>
-                    <MenuItem Header="_Save" Click="SaveCanvas"/>
+                    <MenuItem Header="_New" Command="New"/>
+                    <MenuItem Header="_Open" Command="Open"/>
+                    <MenuItem Header="_Save" Command="Save"/>
                 </MenuItem>
-                <MenuItem Header="_Shapes"  x:Name="polygonesList" ItemTemplate="{StaticResource listTemplate}">
-                </MenuItem>
+                <MenuItem Header="_Shapes"  x:Name="polygonesList" ItemTemplate="{StaticResource listTemplate}" />
                 <MenuItem Header="_Save">
                 </MenuItem>
             </Menu>
