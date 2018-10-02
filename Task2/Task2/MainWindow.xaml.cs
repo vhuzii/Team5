@@ -46,8 +46,11 @@ namespace Task2
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Text file (*.xml)|*.xml";
             dialog.ShowDialog();
-            string path = System.IO.Path.GetFullPath(dialog.FileName);
-            this.figureService.SerealizeAll(path);
+            if (dialog.FileName != string.Empty)
+            {
+                string path = System.IO.Path.GetFullPath(dialog.FileName);
+                this.figureService.SerealizeAll(path);
+            }
         }
 
         private void OpenCanvas(object sender, RoutedEventArgs e)
@@ -55,13 +58,16 @@ namespace Task2
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Text file (*.xml)|*.xml";
             dialog.ShowDialog();
-            string fullPath = System.IO.Path.GetFullPath(dialog.FileName);
-            var polygons = this.figureService.DeserializeAll(fullPath);
-            this.ClearCanvas();
-            this.Background = Brushes.White;
-            foreach (var polygon in polygons)
+            if (dialog.FileName != string.Empty)
             {
-                this.DrawFigure(polygon);
+                string fullPath = System.IO.Path.GetFullPath(dialog.FileName);
+                var polygons = this.figureService.DeserializeAll(fullPath);
+                this.ClearCanvas();
+                this.Background = Brushes.White;
+                foreach (var polygon in polygons)
+                {
+                    this.DrawFigure(polygon);
+                }
             }
         }
 
