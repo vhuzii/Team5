@@ -20,7 +20,8 @@ namespace Task2
     {
         private readonly IService<Polygon> figureService;
         private PointCollection clickedPoints = new PointCollection();
-        public ObservableCollection<Polygon> polygons = new ObservableCollection<Polygon>();
+        private ObservableCollection<Polygon> polygons = new ObservableCollection<Polygon>();
+        private Polygon selectedPolygon = null;
         private List<Line> lines = new List<Line>();
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace Task2
         {
             this.InitializeComponent();
             this.figureService = new FigureService();
-            polygonesList.ItemsSource = polygons;
+            this.polygonesList.ItemsSource = this.polygons;
         }
 
         private void NewCanvas(object sender, RoutedEventArgs e)
@@ -86,7 +87,6 @@ namespace Task2
         {
             this.polygons.Add(polygon);
             this.Main.Children.Add(polygon);
-            //this.ShapesMenu.Items.Add(polygon);
         }
 
         private Polygon CreatePolygon()
@@ -126,9 +126,16 @@ namespace Task2
             this.Hint.Visibility = Visibility.Collapsed;
         }
 
-        private void polygonesList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SelectPolygon(object sender, RoutedEventArgs e)
         {
+            if (this.selectedPolygon != null)
+            {
+                this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Black);
+            }
 
+            var item = (System.Windows.Controls.MenuItem)e.OriginalSource;
+            this.selectedPolygon = (Polygon)item.DataContext;
+            this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Red);
         }
     }
 }
