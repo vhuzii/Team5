@@ -5,7 +5,9 @@
 namespace Task2
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Forms;
     using System.Windows.Input;
     using System.Windows.Media;
@@ -19,8 +21,11 @@ namespace Task2
     {
         private readonly IService<Polygon> figureService;
         private PointCollection clickedPoints = new PointCollection();
-        private List<System.Windows.Shapes.Polygon> polygons = new List<System.Windows.Shapes.Polygon>();
+        private ObservableCollection<Polygon> polygons = new ObservableCollection<Polygon>();
+        private Polygon selectedPolygon = null;
         private List<Line> lines = new List<Line>();
+        private bool dragging = false;
+        private Point clickV;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -29,6 +34,11 @@ namespace Task2
         {
             this.InitializeComponent();
             this.figureService = new FigureService();
+            this.polygonesList.ItemsSource = this.polygons;
+
+            this.Main.MouseMove += new System.Windows.Input.MouseEventHandler(this.CanvasMouseMove);
+
+            this.Main.MouseUp += new MouseButtonEventHandler(this.CanvasMouseUp);
         }
 
         private void NewCanvas(object sender, RoutedEventArgs e)
@@ -43,8 +53,11 @@ namespace Task2
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Text file (*.xml)|*.xml";
             dialog.ShowDialog();
-            string path = System.IO.Path.GetFullPath(dialog.FileName);
-            this.figureService.SerealizeAll(path);
+            if (dialog.FileName != string.Empty)
+            {
+                string path = System.IO.Path.GetFullPath(dialog.FileName);
+                this.figureService.SerealizeAll(path);
+            }
         }
 
         private void OpenCanvas(object sender, RoutedEventArgs e)
@@ -52,31 +65,37 @@ namespace Task2
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Text file (*.xml)|*.xml";
             dialog.ShowDialog();
-            string fullPath = System.IO.Path.GetFullPath(dialog.FileName);
-            var polygons = this.figureService.DeserializeAll(fullPath);
-            this.ClearCanvas();
-            this.Background = Brushes.White;
-            foreach (var polygon in polygons)
+            if (dialog.FileName != string.Empty)
             {
-                this.DrawFigure(polygon);
+                string fullPath = System.IO.Path.GetFullPath(dialog.FileName);
+                var polygons = this.figureService.DeserializeAll(fullPath);
+                this.ClearCanvas();
+                this.Background = Brushes.White;
+                foreach (var polygon in polygons)
+                {
+                    this.DrawFigure(polygon);
+                }
             }
         }
 
         private void MouseClick(object sender, MouseButtonEventArgs e)
         {
-            Point p = e.GetPosition(this);
-            this.clickedPoints.Add(p);
-            if (this.clickedPoints.Count > 1)
+            if (!this.dragging)
             {
-                this.DrawLine();
-            }
+                Point p = e.GetPosition(this);
+                this.clickedPoints.Add(p);
+                if (this.clickedPoints.Count > 1)
+                {
+                    this.DrawLine();
+                }
 
-            if (this.clickedPoints.Count == 6)
-            {
-                this.lines.Clear();
-                Polygon polygon = this.CreatePolygon();
-                this.DrawFigure(polygon);
-                this.clickedPoints.Clear();
+                if (this.clickedPoints.Count == 6)
+                {
+                    this.lines.Clear();
+                    Polygon polygon = this.CreatePolygon();
+                    this.DrawFigure(polygon);
+                    this.clickedPoints.Clear();
+                }
             }
         }
 
@@ -121,6 +140,93 @@ namespace Task2
             this.clickedPoints.Clear();
             this.Main.Visibility = Visibility.Visible;
             this.Hint.Visibility = Visibility.Collapsed;
+        }
+
+        private void SelectPolygon(object sender, RoutedEventArgs e)
+        {
+            if (this.selectedPolygon != null)
+            {
+                this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Black);
+            }
+
+            var item = (System.Windows.Controls.MenuItem)e.OriginalSource;
+            this.selectedPolygon = (Polygon)item.DataContext;
+            this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Red);
+            this.selectedPolygon.MouseDown += new MouseButtonEventHandler(this.PolygonMouseDown);
+        }
+
+        private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.dragging = false;
+        }
+
+        private void CanvasMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (this.dragging && this.selectedPolygon != null)
+            {
+                Canvas.SetLeft(this.selectedPolygon, e.GetPosition(this.Main).X - this.clickV.X);
+                Canvas.SetTop(this.selectedPolygon, e.GetPosition(this.Main).Y - this.clickV.Y);
+            }
+        }
+
+        private void PolygonMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.dragging = true;
+            this.clickV = e.GetPosition(this.selectedPolygon);
+        }
+
+        private void KeyboardClick(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (this.selectedPolygon != null)
+            {
+                if (e.Key == Key.Up)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X, point.Y - 5));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+
+                if (e.Key == Key.Down)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X, point.Y + 5));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+
+                if (e.Key == Key.Left)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X - 5, point.Y));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+
+                if (e.Key == Key.Right)
+                {
+                    var oldPoints = this.selectedPolygon.Points;
+                    PointCollection newPoints = new PointCollection();
+                    foreach (var point in oldPoints)
+                    {
+                        newPoints.Add(new Point(point.X + 5, point.Y));
+                    }
+
+                    this.selectedPolygon.Points = newPoints;
+                }
+            }
         }
     }
 }
