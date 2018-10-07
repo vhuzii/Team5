@@ -64,7 +64,7 @@ namespace Business_Layer.Services
         /// <inheritdoc/>
         public void Remove(Polygon entity)
         {
-            throw new NotImplementedException();
+            this.figureRepository.Remove(entity);
         }
 
         /// <inheritdoc/>

@@ -35,7 +35,11 @@ namespace Data_Access.XMLModels
         public XMLPolygon(List<Point> points, Brush fill, double strokeThickness)
         {
             this.Points = points;
-            this.Color = ((SolidColorBrush)fill).Color;
+            if (fill != null)
+            {
+                this.Color = ((SolidColorBrush)fill).Color;
+            }
+
             this.StrokeThickness = strokeThickness;
         }
 
