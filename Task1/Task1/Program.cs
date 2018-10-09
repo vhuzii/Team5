@@ -20,12 +20,13 @@ namespace Task1
         {
             try
             {
-                List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
+                HttpErrorsService service = new HttpErrorsService();
+                List<HttpError> errors = service.GetHttpErrorsFromFile(@"..\..\Files\file1.txt").ToList();
                 Console.WriteLine("errors from file1: ");
-                HttpErrorsService.OutputErrors(errors);
+                service.OutputErrors(errors);
                 Console.WriteLine("changed file2: ");
-                HttpErrorsService.ReplaceCodesToDescription(errors, @"..\..\Files\file2.txt");
-                HttpErrorsService.PrintCodesToFile(errors, @"..\..\Files\file3.txt");
+                service.ReplaceCodesToDescription(errors, @"..\..\Files\file2.txt");
+                service.PrintCodesToFile(errors, @"..\..\Files\file3.txt");
             }
             catch (IOException exception)
             {

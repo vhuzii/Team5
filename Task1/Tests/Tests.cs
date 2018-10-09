@@ -76,40 +76,44 @@ namespace Tests
         [Test]
         public void GetHttpErrorsFromFileTest()
         {
-            List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
+            HttpErrorsService service = new HttpErrorsService();
+            List<HttpError> errors = service.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
             Assert.AreEqual(errors.Count, 6);
             Assert.AreEqual(errors[3].ErrorCode, 401);
 
             Assert.Throws(typeof(IOException),
-                () => HttpErrorsService.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\notExistingFile.txt"));
+                () => service.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\notExistingFile.txt"));
         }
 
         [Test]
         public void PrintCodesToFileTest()
         {
-            List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
-            HttpErrorsService.PrintCodesToFile(errors, @"..\..\..\Task1\Files\file3.txt");
+            HttpErrorsService service = new HttpErrorsService();
+            List<HttpError> errors = service.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
+            service.PrintCodesToFile(errors, @"..\..\..\Task1\Files\file3.txt");
 
             Assert.Throws(typeof(IOException),
-                () => HttpErrorsService.PrintCodesToFile(errors, @"..\..\..\Task1\Files\notExistingFile.txt"));
+                () => service.PrintCodesToFile(errors, @"..\..\..\Task1\Files\notExistingFile.txt"));
 
         }
 
         [Test]
         public void OutoutErrorsTests()
         {
-            List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
-            HttpErrorsService.OutputErrors(errors);
+            HttpErrorsService service = new HttpErrorsService();
+            List<HttpError> errors = service.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
+            service.OutputErrors(errors);
         }
             
         [Test]
         public void ReplaceCodesToDescription()
         {
-            List<HttpError> errors = HttpErrorsService.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
-            HttpErrorsService.ReplaceCodesToDescription(errors, @"..\..\..\Task1\Files\file2.txt");
+            HttpErrorsService service = new HttpErrorsService();
+            List<HttpError> errors = service.GetHttpErrorsFromFile(@"..\..\..\Task1\Files\file1.txt").ToList();
+            service.ReplaceCodesToDescription(errors, @"..\..\..\Task1\Files\file2.txt");
 
             Assert.Throws(typeof(IOException),
-                () => HttpErrorsService.ReplaceCodesToDescription(errors, @"..\..\..\Task1\Files\notExistingFile.txt"));
+                () => service.ReplaceCodesToDescription(errors, @"..\..\..\Task1\Files\notExistingFile.txt"));
         }
     }
 }

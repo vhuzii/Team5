@@ -99,10 +99,11 @@ namespace Task2
                 {
                     Polygon polygon = this.CreatePolygon();
                     this.DrawFigure(polygon);
-                    foreach (var line in lines)
+                    foreach (var line in this.lines)
                     {
                         this.Main.Children.Remove(line);
                     }
+
                     this.lines.Clear();
                     this.clickedPoints.Clear();
                 }

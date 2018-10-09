@@ -22,7 +22,7 @@ namespace Task1.Services
         /// </summary>
         /// <param name="path">file path</param>
         /// <returns>error collectio</returns>
-        public static IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
+        public IEnumerable<HttpError> GetHttpErrorsFromFile(string path)
         {
             if (File.Exists(path))
             {
@@ -51,7 +51,7 @@ namespace Task1.Services
         /// </summary>
         /// <param name="errors">errors to replace in text</param>
         /// <param name="path">path to text</param>
-        public static void ReplaceCodesToDescription(List<HttpError> errors, string path)
+        public void ReplaceCodesToDescription(List<HttpError> errors, string path)
         {
             if (File.Exists(path))
             {
@@ -76,7 +76,7 @@ namespace Task1.Services
         /// </summary>
         /// <param name="errors">list of errors to output</param>
         /// <param name="path">path to file</param>
-        public static void PrintCodesToFile(List<HttpError> errors, string path)
+        public void PrintCodesToFile(List<HttpError> errors, string path)
         {
             var groups = from e in errors
                          group e by e.ErrorCode;
@@ -107,7 +107,7 @@ namespace Task1.Services
         /// Output errors in console
         /// </summary>
         /// <param name="errors">errors to output</param>
-        public static void OutputErrors(List<HttpError> errors)
+        public void OutputErrors(List<HttpError> errors)
         {
             foreach (var error in errors)
             {
