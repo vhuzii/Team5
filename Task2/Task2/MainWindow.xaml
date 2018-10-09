@@ -34,10 +34,8 @@
                  Grid.Row="1" Name="Main"
                  MouseLeftButtonDown="MouseClick" 
                  Background="Transparent"
-                 Canvas.Left="5"
-                 Canvas.Top="5" 
                  Focusable="true" />
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Hint">
+        <StackPanel Grid.Row="1" Style="{StaticResource Center}" Name="Hint">
             <TextBlock>Select File -> New to start drawing</TextBlock>
             <TextBlock>Select File -> Open to open a canvas</TextBlock>
         </StackPanel>

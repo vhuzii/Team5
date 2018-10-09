@@ -14,5 +14,9 @@
                 </StackPanel.LayoutTransform>
             </StackPanel>
         </DataTemplate>
+        <Style x:Key="Center">
+            <Setter Property="Control.VerticalAlignment" Value="Center" />
+            <Setter Property="Control.HorizontalAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

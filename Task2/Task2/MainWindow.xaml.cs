@@ -4,6 +4,7 @@
 
 namespace Task2
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows;
@@ -50,6 +51,11 @@ namespace Task2
 
         private void SaveCanvas(object sender, RoutedEventArgs e)
         {
+            if (this.polygons.Count == 0)
+            {
+                throw new InvalidOperationException("There is no shapes in the canvas");
+            }
+
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Text file (*.xml)|*.xml";
             dialog.ShowDialog();
@@ -89,11 +95,15 @@ namespace Task2
                     this.DrawLine();
                 }
 
-                if (this.clickedPoints.Count == 6)
+                if (this.clickedPoints.Count >= 6)
                 {
-                    this.lines.Clear();
                     Polygon polygon = this.CreatePolygon();
                     this.DrawFigure(polygon);
+                    foreach (var line in lines)
+                    {
+                        this.Main.Children.Remove(line);
+                    }
+                    this.lines.Clear();
                     this.clickedPoints.Clear();
                 }
             }
@@ -147,6 +157,11 @@ namespace Task2
             if (this.selectedPolygon != null)
             {
                 this.selectedPolygon.Stroke = new SolidColorBrush(Colors.Black);
+            }
+
+            if (this.polygons.Count == 0)
+            {
+                throw new InvalidOperationException("There is no shapes in the canvas");
             }
 
             var item = (System.Windows.Controls.MenuItem)e.OriginalSource;
@@ -219,7 +234,7 @@ namespace Task2
                 {
                     var oldPoints = this.selectedPolygon.Points;
                     PointCollection newPoints = new PointCollection();
-                    foreach (var point in oldPoints)
+                    foreach (var point in this.selectedPolygon.Points)
                     {
                         newPoints.Add(new Point(point.X + 5, point.Y));
                     }
