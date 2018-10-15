@@ -54,11 +54,13 @@ namespace Tests
         public void RemoveFigureTest()
         {
             FigureService service = new FigureService();
-            List<Point> points = new List<Point>();
-            points.Add(new Point(8, 3));
-            points.Add(new Point(4, 2));
-            points.Add(new Point(-2, 3));
-          
+            List<Point> points = new List<Point>
+            {
+                new Point(8, 3),
+                new Point(4, 2),
+                new Point(-2, 3)
+            };
+
             Polygon polygon = new Polygon()
             {
                 Points = new PointCollection(points)
@@ -77,15 +79,19 @@ namespace Tests
         public void RemoveAllTests()
         {
             FigureService service = new FigureService();
-            List<Point> points = new List<Point>();
-            points.Add(new Point(8, 3));
-            points.Add(new Point(4, 2));
-            points.Add(new Point(-2, 3));
+            List<Point> points = new List<Point>
+            {
+                new Point(8, 3),
+                new Point(4, 2),
+                new Point(-2, 3)
+            };
 
-            List<Point> points2 = new List<Point>();
-            points2.Add(new Point(88, 3));
-            points2.Add(new Point(4, 22));
-            points2.Add(new Point(-22, 3));
+            List<Point> points2 = new List<Point>
+            {
+                new Point(88, 3),
+                new Point(4, 22),
+                new Point(-22, 3)
+            };
 
             Polygon polygon = new Polygon()
             {
