@@ -42,6 +42,12 @@ namespace BLL.Services
         }
 
         /// <inheritdoc/>
+        public double GetBalance()
+        {
+            return this.taxiOrderRepository.GetBalance();
+        }
+
+        /// <inheritdoc/>
         public double GetBusinessTaxi(double numberOfKilometres)
         {
             TaxiOrder businessTaxiOrder = new BusinessTaxiOrder(numberOfKilometres);

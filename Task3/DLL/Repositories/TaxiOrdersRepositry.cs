@@ -85,5 +85,11 @@ namespace DLL.Repositories
 
             return client;
         }
+
+        /// <inheritdoc/>
+        public double GetBalance()
+        {
+            return this.client.Balance;
+        }
     }
 }

@@ -56,5 +56,11 @@ namespace DAL.Abstractions
         /// <param name="path">file path.</param>
         /// <returns>Customer.</returns>
         ITaxiClient DeserealizeTaxiClient(string path);
+
+        /// <summary>
+        /// Get customer Balance
+        /// </summary>
+        /// <returns>balance</returns>
+        double GetBalance();
     }
 }
