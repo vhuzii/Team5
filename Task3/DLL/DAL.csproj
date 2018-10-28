@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\IRepository.cs" />
+    <Compile Include="Abstractions\ITaxiOrderRepository.cs" />
     <Compile Include="Abstractions\ITaxiClient.cs" />
     <Compile Include="Abstractions\TaxiOrder.cs" />
     <Compile Include="Models\BusinessTaxiOrder.cs" />

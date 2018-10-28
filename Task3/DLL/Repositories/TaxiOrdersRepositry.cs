@@ -10,10 +10,11 @@ namespace DLL.Repositories
     using System.Linq;
     using DAL.Abstractions;
     using DLL.Interfaces;
+    using DLL.Models;
     using Newtonsoft.Json;
 
     /// <inheritdoc/>
-    public class TaxiOrdersRepositry : IRepository<TaxiOrder>
+    public class TaxiOrdersRepositry : ITaxiOrderRepository<TaxiOrder>
     {
         private static object locker = new object();
 
@@ -32,16 +33,16 @@ namespace DLL.Repositories
         }
 
         /// <inheritdoc/>
-        public void Add(TaxiOrder entity) => this.client.GetTaxi(entity);
+        public double OrderTaxi(TaxiOrder entity) => this.client.GetTaxi(entity);
 
         /// <inheritdoc/>
-        public IEnumerable<TaxiOrder> GetAll()
+        public IEnumerable<TaxiOrder> GetHistory()
         {
             return this.client.OrderHistory;
         }
 
         /// <inheritdoc/>
-        public void Remove(TaxiOrder entity)
+        public void RemoveOrderFromHistory(TaxiOrder entity)
         {
             var deleteEntity = this.client.OrderHistory.FirstOrDefault(e => e.NumberOfKilometres == entity.NumberOfKilometres &&
                                                                             e.PricePerKilometr == entity.PricePerKilometr);
@@ -49,7 +50,7 @@ namespace DLL.Repositories
         }
 
         /// <inheritdoc/>
-        public void RemoveAll()
+        public void RemoveHistory()
         {
             this.client.OrderHistory.Clear();
         }
@@ -64,6 +65,25 @@ namespace DLL.Repositories
                     sw.Write(JsonConvert.SerializeObject(this.client));
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public void AddBalance(double amount)
+        {
+            this.client.Balance += amount;
+        }
+
+        /// <inheritdoc/>
+        public ITaxiClient DeserealizeTaxiClient(string path)
+        {
+            ITaxiClient client = null;
+            using (StreamReader file = File.OpenText(path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                client = (TaxiClient)serializer.Deserialize(file, typeof(TaxiClient));
+            }
+
+            return client;
         }
     }
 }
