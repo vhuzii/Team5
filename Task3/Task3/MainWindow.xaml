@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:Task3"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="NewCustomer" />
+        <CommandBinding Command="Open" Executed="OpenCustomer" />
+        <CommandBinding Command="Save" Executed="SaveCustomer" />
+    </Window.CommandBindings>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Customer">
+                    <MenuItem Header="_New" Command="New"/>
+                    <MenuItem Header="_Open" Command="Open"/>
+                    <MenuItem Header="_Save" Command="Save"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
     </Grid>
 </Window>
