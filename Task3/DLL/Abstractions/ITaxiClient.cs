@@ -4,11 +4,23 @@
 
 namespace DLL.Interfaces
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Client of Taxi Servicem.
     /// </summary>
     public interface ITaxiClient
     {
+        /// <summary>
+        /// Gets or sets userBalance.
+        /// </summary>
+        double Balance { get; set; }
+
+        /// <summary>
+        /// Gets OrderHistory.
+        /// </summary>
+        List<TaxiOrder> OrderHistory { get; }
+
         /// <summary>
         /// Get Taxi for a client.
         /// </summary>

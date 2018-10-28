@@ -24,7 +24,7 @@ namespace DLL.Models
         }
 
         /// <inheritdoc/>
-        protected override double PricePerKilometr => 5;
+        public override double PricePerKilometr => 5;
 
         /// <inheritdoc/>
         public override double Pay()

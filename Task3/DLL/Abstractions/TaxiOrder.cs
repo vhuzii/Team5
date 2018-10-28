@@ -21,12 +21,12 @@ namespace DLL.Interfaces
         /// <summary>
         /// Gets price per onoe kilometr.
         /// </summary>
-        protected abstract double PricePerKilometr { get; }
+        public abstract double PricePerKilometr { get; }
 
         /// <summary>
         /// Gets number of kilometres to drive.
         /// </summary>
-        protected double NumberOfKilometres { get; private set; }
+        public double NumberOfKilometres { get; private set; }
 
         /// <summary>
         /// Pay for a taxi.
