@@ -47,6 +47,7 @@
     <Compile Include="Abstractions\ITaxiOrderRepository.cs" />
     <Compile Include="Abstractions\ITaxiClient.cs" />
     <Compile Include="Abstractions\TaxiOrder.cs" />
+    <Compile Include="JsonConvertors\TaxiOrderConverter.cs" />
     <Compile Include="Models\BusinessTaxiOrder.cs" />
     <Compile Include="Models\NormalTaxiOrder.cs" />
     <Compile Include="Models\TaxiClient.cs" />

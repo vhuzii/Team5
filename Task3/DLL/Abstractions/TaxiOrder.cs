@@ -4,9 +4,14 @@
 
 namespace DLL.Interfaces
 {
+    using System;
+    using DLL.JsonConvertors;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Order Taxi interface.
     /// </summary>
+    [JsonConverter(typeof(TaxiOrderConverter))]
     public abstract class TaxiOrder
     {
         /// <summary>
@@ -16,17 +21,23 @@ namespace DLL.Interfaces
         public TaxiOrder(double numberOfKilometres)
         {
             this.NumberOfKilometres = numberOfKilometres;
+            this.TimeOfOrder = DateTime.Now;
         }
 
         /// <summary>
         /// Gets price per onoe kilometr.
         /// </summary>
-        public abstract double PricePerKilometr { get; }
+        public abstract double PricePerKilometr { get;  }
 
         /// <summary>
         /// Gets number of kilometres to drive.
         /// </summary>
-        public double NumberOfKilometres { get; private set; }
+        public double NumberOfKilometres { get; set; }
+
+        /// <summary>
+        /// Gets order time.
+        /// </summary>
+        public DateTime TimeOfOrder { get; }
 
         /// <summary>
         /// Pay for a taxi.

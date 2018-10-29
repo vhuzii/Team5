@@ -31,5 +31,14 @@ namespace DLL.Models
         {
             return this.PricePerKilometr * this.NumberOfKilometres;
         }
+
+        /// <summary>
+        /// Gets info about taxi order.
+        /// </summary>
+        /// <returns>info.</returns>
+        public override string ToString()
+        {
+            return this.TimeOfOrder.ToLocalTime().ToString() + ": You just ordered Business taxi and it costs " + this.Pay() + " $";
+        }
     }
 }

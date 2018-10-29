@@ -50,5 +50,11 @@ namespace BLL.Interfaces
         /// <param name="path">file path.</param>
         /// <returns>Customer.</returns>
         ITaxiClient DeserealizeClient(string path);
+
+        /// <summary>
+        /// Get customer Balance
+        /// </summary>
+        /// <returns>balance</returns>
+        double GetBalance();
     }
 }
