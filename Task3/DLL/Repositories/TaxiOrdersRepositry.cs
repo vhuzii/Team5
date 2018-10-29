@@ -80,7 +80,7 @@ namespace DLL.Repositories
             using (StreamReader file = File.OpenText(path))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                client = (TaxiClient)serializer.Deserialize(file, typeof(TaxiClient));
+                client = (ITaxiClient)serializer.Deserialize(file, typeof(TaxiClient));
             }
 
             return client;

@@ -30,16 +30,16 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <DockPanel Grid.Column="0"  Name="CommandPanel" >
+            <TextBlock Name="BeginMessage" Grid.Column="0" FontSize="25"  >↑Choose customer, please</TextBlock>
+            <DockPanel Grid.Column="0"  Name="CommandPanel" Visibility="Hidden">
                 <StackPanel>
-                    <TextBlock Name="Balance" FontSize="25" Width="165"></TextBlock>
-                    <TextBox Width="142" Height="26" Margin="0 20 0 0"/>
+                    <TextBlock Name="Balance" FontSize="25" Width="200" Margin="38 0 0 0"></TextBlock>
+                    <TextBox Width="145" Height="26" Name="AddBalance" Margin="0 20 0 0"/>
                     <Button Content="Add balance" Height="32" VerticalAlignment="Top" Width="145" Margin="0 20 0 0" RenderTransformOrigin="0.5,0.5" Click="Button_Click"/>
                     <TextBlock TextWrapping="Wrap" FontSize="25" Margin="0 20 0 0" Width="106" Text="Get a taxi"/>
-                    <StackPanel Width="75" Margin="0 10 0 0">
-                        <RadioButton GroupName="TaxiType" Content="Normal" IsChecked="True"/>
-                        <RadioButton GroupName="TaiType" Content="Business" />
+                    <StackPanel Width="150" Margin="0 10 0 0">
+                        <RadioButton GroupName="TaxiType" Content="Normal(5$ per km)" Name="NormalButton" IsChecked="True"/>
+                        <RadioButton GroupName="TaxiType" Content="Business(10$ per km)" Name="BusinessButton" />
                     </StackPanel>
                     <TextBox Height="23" Margin="0 10 0 0" TextWrapping="Wrap" Name="NumbOfKilometres" Text="Number of kilometres" Width="142"/>
                     <Button Content="Submit" Margin="0 10 0 0" Width="138" Height="30" Click="Button_Click_1"/>
@@ -47,7 +47,10 @@
                 </StackPanel>
             </DockPanel>
             <DockPanel Grid.Column="1" >
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Name="Log"/>
 
+                </ScrollViewer>
             </DockPanel>
         </Grid>
     </Grid>
