@@ -1,4 +1,8 @@
-﻿namespace DLL.JsonConvertors
+﻿// <copyright file="TaxiOrderConverter.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace DLL.JsonConvertors
 {
     using System;
     using DLL.Interfaces;
@@ -14,7 +18,8 @@
         : CustomCreationConverter<TaxiOrder>
     {
         private int pricePerKm;
-
+        private DateTime timeOfOrder;
+        private double numberOfKilomitres;
         /// <summary>
         /// read json.
         /// </summary>
@@ -27,6 +32,8 @@
         {
             var jobj = JObject.ReadFrom(reader);
             this.pricePerKm = jobj["PricePerKilometr"].ToObject<int>();
+            this.timeOfOrder = jobj["TimeOfOrder"].ToObject<DateTime>();
+            this.numberOfKilomitres = jobj["NumberOfKilometres"].ToObject<double>();
             return base.ReadJson(jobj.CreateReader(), objectType, existingValue, serializer);
         }
 
@@ -40,9 +47,9 @@
             switch (this.pricePerKm)
             {
                 case 5:
-                    return new NormalTaxiOrder(0);
+                    return new NormalTaxiOrder(numberOfKilomitres, timeOfOrder);
                 case 10:
-                    return new BusinessTaxiOrder(0);
+                    return new BusinessTaxiOrder(numberOfKilomitres, timeOfOrder);
                 default:
                     throw new NotImplementedException();
             }

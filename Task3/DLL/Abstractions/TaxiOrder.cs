@@ -24,13 +24,19 @@ namespace DLL.Interfaces
             this.TimeOfOrder = DateTime.Now;
         }
 
+        public TaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
+        {
+            this.NumberOfKilometres = numberOfKilometres;
+            this.TimeOfOrder = timeOfOrder;
+        }
+
         /// <summary>
         /// Gets price per onoe kilometr.
         /// </summary>
         public abstract double PricePerKilometr { get;  }
 
         /// <summary>
-        /// Gets number of kilometres to drive.
+        /// Gets or sets number of kilometres to drive.
         /// </summary>
         public double NumberOfKilometres { get; set; }
 

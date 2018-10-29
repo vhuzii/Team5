@@ -23,6 +23,11 @@ namespace DLL.Models
         {
         }
 
+        public BusinessTaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
+            : base(numberOfKilometres, timeOfOrder)
+        {
+        }
+
         /// <inheritdoc/>
         public override double PricePerKilometr => 10;
 

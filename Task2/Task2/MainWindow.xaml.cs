@@ -89,6 +89,7 @@ namespace Task2
             if (!this.dragging)
             {
                 Point p = e.GetPosition(this);
+                p.Y -= 20;
                 this.clickedPoints.Add(p);
                 if (this.clickedPoints.Count > 1)
                 {
@@ -121,9 +122,10 @@ namespace Task2
             Polygon polygon = new Polygon();
             polygon.Points = this.clickedPoints.Clone();
             this.figureService.Add(polygon);
-            ChooseColorModal modal = new ChooseColorModal();
-            modal.ShowDialog();
-            polygon.Fill = new SolidColorBrush(modal.ChosenColor);
+            ColorDialog dialog = new ColorDialog();
+            dialog.ShowDialog();
+            System.Windows.Media.Color mediaColor = System.Windows.Media.Color.FromRgb(dialog.Color.R, dialog.Color.G, dialog.Color.B);
+            polygon.Fill = new SolidColorBrush(mediaColor);
             polygon.StrokeThickness = 4;
             polygon.Stroke = new SolidColorBrush(Colors.Black);
             return polygon;

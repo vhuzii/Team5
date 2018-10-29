@@ -43,8 +43,10 @@ namespace Task3
 
         private void SaveCustomer(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "Text file (*.json)|*.json";
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "Text file (*.json)|*.json"
+            };
             dialog.ShowDialog();
             if (dialog.FileName != string.Empty)
             {
@@ -55,8 +57,10 @@ namespace Task3
 
         private void OpenCustomer(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Text file (*.json)|*.json";
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Filter = "Text file (*.json)|*.json"
+            };
             dialog.ShowDialog();
             if (dialog.FileName != string.Empty)
             {

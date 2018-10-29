@@ -23,6 +23,11 @@ namespace DLL.Models
         {
         }
 
+        public NormalTaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
+            : base(numberOfKilometres, timeOfOrder)
+        {
+        }
+
         /// <inheritdoc/>
         public override double PricePerKilometr => 5;
 
@@ -38,7 +43,7 @@ namespace DLL.Models
         /// <returns>info.</returns>
         public override string ToString()
         {
-            return this.TimeOfOrder.ToLocalTime().ToString() + "You just ordered Normal taxi and it costs " + this.Pay() + " $";
+            return this.TimeOfOrder.ToLocalTime().ToString() + ": You just ordered Normal taxi and it costs " + this.Pay() + " $";
         }
     }
 }

@@ -23,7 +23,7 @@ namespace DLL.Models
         public double GetTaxi(TaxiOrder order)
         {
             double price = order.Pay();
-            if ((this.Balance - price) < 0 )
+            if ((this.Balance - price) < 0)
             {
                 throw new InvalidOperationException("You have not enough money");
             }
