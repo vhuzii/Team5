@@ -77,13 +77,12 @@ namespace DLL.Repositories
         public ITaxiClient DeserealizeTaxiClient(string path)
         {
             ITaxiClient client = null;
-            
-                using (StreamReader file = File.OpenText(path))
+
+            using (StreamReader file = File.OpenText(path))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     this.client = (ITaxiClient)serializer.Deserialize(file, typeof(TaxiClient));
                 }
-            
 
             return client;
         }

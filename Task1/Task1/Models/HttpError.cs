@@ -27,7 +27,7 @@ namespace Task1.Models
         }
 
         /// <summary>
-        /// Gets or sets time when error code
+        /// Gets or sets error code
         /// </summary>
         public int ErrorCode { get; set; }
 
