@@ -24,6 +24,11 @@ namespace DLL.Interfaces
             this.TimeOfOrder = DateTime.Now;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaxiOrder"/> class.
+        /// </summary>
+        /// <param name="numberOfKilometres">number of kilometres.</param>
+        /// <param name="timeOfOrder">time of order.</param>
         public TaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
         {
             this.NumberOfKilometres = numberOfKilometres;

@@ -30,10 +30,10 @@ namespace Tests
         {
             IOrderTaxiService service = new OrderTaxiService(new TaxiClient());
 
-           /* service.AddBalance(25);
+            service.AddBalance(25);
             service.AddBalance(25);
             service.GetBusinessTaxi(2);
-            service.SaveChanges(@"Files\file1.json");*/
+            service.SaveChanges(@"Files\file1.json");
 
             IOrderTaxiService anotherService = new OrderTaxiService(new TaxiClient());
             anotherService.DeserealizeClient(@"Files\file1.json");
@@ -54,7 +54,7 @@ namespace Tests
         }
 
         [Test]
-        public void GetHistoryTest()
+        public void GetDeleteHistoryTest()
         {
             IOrderTaxiService service = new OrderTaxiService(new TaxiClient());
 
@@ -66,6 +66,21 @@ namespace Tests
 
             Assert.AreEqual(service.GetHistory().First().NumberOfKilometres, 5);
             Assert.AreEqual(service.GetHistory().Last().NumberOfKilometres, 2);
+        }
+
+        [Test]
+        public void OrderToStringTest()
+        {
+            DateTime timeOfOrder = DateTime.Now;
+            BusinessTaxiOrder businessOrder = new BusinessTaxiOrder(5, timeOfOrder);
+            Assert.AreEqual(
+                timeOfOrder.ToLocalTime().ToString() + ": You just ordered Business taxi and it costs " + 5 * 10 + " $",
+                businessOrder.ToString());
+
+            NormalTaxiOrder normal = new NormalTaxiOrder(5, timeOfOrder);
+            Assert.AreEqual(
+                timeOfOrder.ToLocalTime().ToString() + ": You just ordered Normal taxi and it costs " + 5 * 5 + " $",
+                normal.ToString());
         }
     }
 }

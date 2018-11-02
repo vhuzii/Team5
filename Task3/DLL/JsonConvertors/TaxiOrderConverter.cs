@@ -20,6 +20,7 @@ namespace DLL.JsonConvertors
         private int pricePerKm;
         private DateTime timeOfOrder;
         private double numberOfKilomitres;
+
         /// <summary>
         /// read json.
         /// </summary>
@@ -47,9 +48,9 @@ namespace DLL.JsonConvertors
             switch (this.pricePerKm)
             {
                 case 5:
-                    return new NormalTaxiOrder(numberOfKilomitres, timeOfOrder);
+                    return new NormalTaxiOrder(this.numberOfKilomitres, this.timeOfOrder);
                 case 10:
-                    return new BusinessTaxiOrder(numberOfKilomitres, timeOfOrder);
+                    return new BusinessTaxiOrder(this.numberOfKilomitres, this.timeOfOrder);
                 default:
                     throw new NotImplementedException();
             }

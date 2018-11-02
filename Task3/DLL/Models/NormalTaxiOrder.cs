@@ -23,6 +23,11 @@ namespace DLL.Models
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NormalTaxiOrder"/> class.
+        /// </summary>
+        /// <param name="numberOfKilometres">number of kilometers.</param>
+        /// <param name="timeOfOrder">time of order.</param>
         public NormalTaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
             : base(numberOfKilometres, timeOfOrder)
         {

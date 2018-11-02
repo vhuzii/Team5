@@ -22,12 +22,6 @@ namespace DAL.Abstractions
         double OrderTaxi(TEntity entity);
 
         /// <summary>
-        /// Method to remove entity.
-        /// </summary>
-        /// <param name="entity">entity to remove.</param>
-        void RemoveOrderFromHistory(TEntity entity);
-
-        /// <summary>
         /// get all elements from repository.
         /// </summary>
         /// <returns>returns all elements from repository.</returns>
@@ -58,9 +52,9 @@ namespace DAL.Abstractions
         ITaxiClient DeserealizeTaxiClient(string path);
 
         /// <summary>
-        /// Get customer Balance
+        /// Get customer Balance.
         /// </summary>
-        /// <returns>balance</returns>
+        /// <returns>balance.</returns>
         double GetBalance();
     }
 }

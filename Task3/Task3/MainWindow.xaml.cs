@@ -20,6 +20,9 @@ namespace Task3
     {
         private IOrderTaxiService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();
