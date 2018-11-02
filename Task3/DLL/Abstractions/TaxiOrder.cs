@@ -25,12 +25,23 @@ namespace DLL.Interfaces
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TaxiOrder"/> class.
+        /// </summary>
+        /// <param name="numberOfKilometres">number of kilometres.</param>
+        /// <param name="timeOfOrder">time of order.</param>
+        public TaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
+        {
+            this.NumberOfKilometres = numberOfKilometres;
+            this.TimeOfOrder = timeOfOrder;
+        }
+
+        /// <summary>
         /// Gets price per onoe kilometr.
         /// </summary>
         public abstract double PricePerKilometr { get;  }
 
         /// <summary>
-        /// Gets number of kilometres to drive.
+        /// Gets or sets number of kilometres to drive.
         /// </summary>
         public double NumberOfKilometres { get; set; }
 

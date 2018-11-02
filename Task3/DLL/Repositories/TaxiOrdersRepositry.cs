@@ -21,7 +21,7 @@ namespace DLL.Repositories
         /// <summary>
         /// Taxi client.
         /// </summary>
-        private readonly ITaxiClient client;
+        private ITaxiClient client;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaxiOrdersRepositry"/> class.
@@ -42,14 +42,6 @@ namespace DLL.Repositories
         }
 
         /// <inheritdoc/>
-        public void RemoveOrderFromHistory(TaxiOrder entity)
-        {
-            var deleteEntity = this.client.OrderHistory.FirstOrDefault(e => e.NumberOfKilometres == entity.NumberOfKilometres &&
-                                                                            e.PricePerKilometr == entity.PricePerKilometr);
-            this.client.OrderHistory.Remove(deleteEntity);
-        }
-
-        /// <inheritdoc/>
         public void RemoveHistory()
         {
             this.client.OrderHistory.Clear();
@@ -60,7 +52,7 @@ namespace DLL.Repositories
         {
             lock (locker)
             {
-                using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+                using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
                 {
                     sw.Write(JsonConvert.SerializeObject(this.client));
                 }
@@ -76,14 +68,13 @@ namespace DLL.Repositories
         /// <inheritdoc/>
         public ITaxiClient DeserealizeTaxiClient(string path)
         {
-            ITaxiClient client = null;
             using (StreamReader file = File.OpenText(path))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                client = (ITaxiClient)serializer.Deserialize(file, typeof(TaxiClient));
-            }
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    this.client = (ITaxiClient)serializer.Deserialize(file, typeof(TaxiClient));
+                }
 
-            return client;
+            return this.client;
         }
 
         /// <inheritdoc/>

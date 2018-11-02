@@ -23,6 +23,16 @@ namespace DLL.Models
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NormalTaxiOrder"/> class.
+        /// </summary>
+        /// <param name="numberOfKilometres">number of kilometers.</param>
+        /// <param name="timeOfOrder">time of order.</param>
+        public NormalTaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
+            : base(numberOfKilometres, timeOfOrder)
+        {
+        }
+
         /// <inheritdoc/>
         public override double PricePerKilometr => 5;
 
@@ -38,7 +48,7 @@ namespace DLL.Models
         /// <returns>info.</returns>
         public override string ToString()
         {
-            return this.TimeOfOrder.ToLocalTime().ToString() + "You just ordered Normal taxi and it costs " + this.Pay() + " $";
+            return this.TimeOfOrder.ToLocalTime().ToString() + ": You just ordered Normal taxi and it costs " + this.Pay() + " $";
         }
     }
 }

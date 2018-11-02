@@ -23,6 +23,16 @@ namespace DLL.Models
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BusinessTaxiOrder"/> class.
+        /// </summary>
+        /// <param name="numberOfKilometres">num of kilometres.</param>
+        /// <param name="timeOfOrder">time of order.</param>
+        public BusinessTaxiOrder(double numberOfKilometres, DateTime timeOfOrder)
+            : base(numberOfKilometres, timeOfOrder)
+        {
+        }
+
         /// <inheritdoc/>
         public override double PricePerKilometr => 10;
 
